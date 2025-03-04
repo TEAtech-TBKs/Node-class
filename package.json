@@ -1,0 +1,24 @@
+{
+  "name": "febuary-node-class",
+  "version": "1.0.0",
+  "description": "This is my node class",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "npm",
+    "class"
+  ],
+  "author": "Esther.T.Akinwale",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "git": "^0.1.5",
+    "mongodb": "^6.13.1",
+    "mongoose": "^8.11.0"
+  }
+}
