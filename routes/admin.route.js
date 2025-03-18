@@ -1,38 +1,36 @@
-const express = require('express');
-const router = express.Router();
-const {addProduct} = require('../controllers/user.controller');
+const express = require("express");
 const {
-endPoint,
-landingPage, 
-signIn, 
-RegisterUser, 
-getDashboard, 
-deleteUser, 
-editUser, 
-updateUser
-} = require('../controllers/user.controller');
+  addUser,
+  getDashboard,
+  deleteUser,
+  editUser,
+  landingPage,
+  endPoint,
+  signUpPage,
+  aboutPage,
+  signInUsers,
+} = require("../controllers/user.controller");
+const { addProduct } = require("../controllers/product.controller");
+const router = express.Router();
 
+router.get("/about", aboutPage);
 
+router.get("/", landingPage);
 
+router.get("/users", endPoint);
 
+router.get("/signup", signUpPage);
 
-//create endpoint
+router.post("/register", addUser);
 
-//send response to client
+router.get("/dashboard", getDashboard);
 
-router.get('/',landingPage)
+router.post("/delete/:id", deleteUser);
 
-router.get('/user', endPoint)
+router.post("/edit/:id", editUser);
 
-router.get('/sign-up',signIn)
+router.post("/add-product", addProduct)
 
-router.post('/register',RegisterUser)
+router.post("/signin", signInUsers)
 
-router.get('/dashboard',getDashboard)
-
-router.post("/delete/:id",deleteUser)
-
-router.get('/edit/:id',editUser)
-
-router.post('/update/:id',updateUser)
 module.exports = router;
