@@ -1,23 +1,31 @@
-const express = require ('express')
-const app = express()
-const ejs =  require('ejs')
-const mongoose = require('mongoose')
-const adminRouter = require('./routes/admin.route');
-app.use('/admin', adminRouter);
-app.use(express.urlencoded({extended:true}))
-app.set('view engine', 'ejs')
-
-let allUsers = []
-//aft :add password to cluster
-let URI = "mongodb+srv://tolulopeakinwale955:tessie+vic1@cluster0.tg22o.mongodb.net/amia-database?retryWrites=true&w=majority&appName=Cluster0"
-
-//Connect  to Mongodb database
-mongoose.connect(URI)
-.then(()=>{console.log('connected to database')
-})
-.catch((error)=>{console.log(error)})
+// console.log("This is my server")
+//Modularization - MVC 
+// import express from "express"
+const express = require("express");
+const app = express();
+const ejs = require("ejs");
+const mongoose = require("mongoose");
+const cors = require("cors")
+const adminRouter = require('./routes/admin.route')
+app.use(express.urlencoded({ extended: true }));
+app.use(cors())
+app.use(express.json())
+app.use('/', adminRouter)
+app.set("view engine", "ejs");
 const PORT = 3000;
-app.listen(PORT, () =>{
-  console.log(`Example router listening on PORT ${PORT}`)
-})
+let allUsers = [];
+let URI = "mongodb+srv://tolulopeakinwale955:tessie+vic1@cluster0.tg22o.mongodb.net/amia-database?retryWrites=true&w=majority&appName=Cluster0";
 
+//connect to Mongodb
+mongoose
+  .connect(URI)
+  .then(() => {
+    console.log("Mongodb iyaf connected successfully");
+    // console.log(response)
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+app.listen(PORT, () => {
+  console.log(`The server have started on port ${PORT}`);
+});
