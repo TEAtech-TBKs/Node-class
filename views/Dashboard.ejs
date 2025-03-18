@@ -20,63 +20,59 @@
 <body>
 
   <h1>Welcome <%= name %></h1>
-  <% if (gender == "female") { %>
-   <h3> you are a female</h3>
-  <% } else{%>
-  <h3>your gender hasn't been confirmed</h3> <% }%>
-  
-  <% for(let index = 0; index < allUsers.length; index++) {%>
-  <h1><%= allUsers[index].firstName %></h1>
-  <h1><%= allUsers[index].lastName %></h1>
-  <h3><%= allUsers[index].email %></h3>
-  <h4><%= allUsers[index].Password %></h4>
-  <h5>Registration Date: <%= allUsers[index].registrationDate.toDateString() %></h5> <!-- Added registration date -->
-  <form action="/delete/<%= allUsers[index]._id %>" method="POST" onsubmit="return confirm ('are you sure?;')">
-
-  <button type="submit"  class="btn btn-danger mt-2">Delete</button>
-  <!-- <a href="/edit/<%= allUsers[index]._id %>" class="btn btn-warning mt-2">Edit</a> -->
-
-  </form>
-  
-  
-  <button class="btn btn-warning m-3" data-bs-toggle="modal" data-bs-target="#editModal<%= allUsers[index]._id %>" >Update </button>
-  <div class="modal fade" id="editModal<%= allUsers[index]._id %>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog" >
-      <div class="modal-content" >
-      <div class="modal-header">Edit info</div>
-        <div class="modal-body">
-          <form action="/update/<%= allUsers[index]._id %>" method="POST">
-            <div class="mb-3">
-              <label for="firstName" class="form-label">First Name</label>
-              <input type="text" class="form-control" id="firstName" name="firstName" value="<%= allUsers[index].firstName %>" required>
-            </div>
-            <div class="mb-3">
-              <label for="lastName" class="form-label text-success">Last Name</label>
-              <input type="text" class="form-control" id="lastName" name="lastName" value="<%= allUsers[index].lastName %>" required>
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input type="email" class="form-control" id="email" name="email" value="<%= allUsers[index].email %>" required readonly>
-              <label for="password">Password</label>
-              <input type="password" placeholder="password" name="Password"><br>
-              
-            </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  <h1>This is my Dashboard <%= name %></h1>
+  <% if (gender == "male") { %>
+  <h1>Hello, You are a male Child</h1>
+  <% } else { %>
+  <h1>Hello, You are a female Child</h1>
   <% } %>
 
-  
-  
-  <!-- <% allUsers.map((users, index)=>{%>
-  	 <h1><%= index + 1  %></h1>
-  	 <h1><%= users .firstName  %></h1>
-  	 <h1><%= users .lastName  %></h1>
-  	 <h1><%= users .email  %></h1>
-  <% })%> -->
+  <!-- <% for( let index = 0; index < users.length; index++ ) { %>
+
+  <h1> <%= index + 1  %> </h1>
+  <h1><strong>Registered On:</strong> <%= new Date(users[index].date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+  }) %></h1>
+  <h1> <%= users[index].firstname %> </h1>
+ <h1> <%= users[index].lastname %> </h1>
+ <h1> <%= users[index].email %> </h1>
+ <h1> <%= users[index].password %> </h1>
+ <form action="/delete/<%= users[index]._id %>" method="POST" onsubmit="return confirm('Are you sure?');">
+  <button type="submit" class="btn btn-danger mt-2">Delete</button>
+</form>
+
+ <button>Edit</button>
+ <% } %> -->
+
+  <% users.map((user, index)=>{ %>
+  <h1><%= index + 1 %></h1>
+  <h1>
+      <strong>Registered On:</strong> <%= isNaN(new Date(user.date).valueOf()) ? 'Invalid Date' : new Date(user.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) %>
+    </h1>
+    
+  <h1><%= user.firstname %></h1>
+  <h1><%= user.lastname %></h1>
+  <h1><%= user.email %></h1>
+  <h1><%= user.age %></h1>
+  <h1><%= user.password %></h1>
+  <form
+    action="/delete/<%= users[index]._id %>"
+    method="POST"
+    onsubmit="return confirm('Are you sure?');"
+  >
+    <button type="submit" class="btn btn-danger mt-2">Delete</button>
+  </form>
+
+  <form action="/edit/<%= user._id %>" method="POST">
+      <input type="text" name="firstname" placeholder="First Name" value="<%= user.firstname %>" required>
+      <input type="text" name="lastname" placeholder="Last Name" value="<%= user.lastname %>" required>
+      <input type="email" name="email" placeholder="Email" value="<%= user.email %>" required>
+      <input type="text" name="age" placeholder="age" value="<%= user.age %>" required>
+      <button type="submit" class="btn btn-primary">Edit</button>
+  </form>
+
+  <% }) %>
 </body>
 </html>
